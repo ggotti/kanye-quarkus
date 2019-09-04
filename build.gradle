@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'io.quarkus' version '0.21.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation enforcedPlatform('io.quarkus:quarkus-bom:0.21.1')
+    implementation  'io.quarkus:quarkus-rest-client'
+    implementation  'io.quarkus:quarkus-resteasy-jsonb'
+    implementation 'io.quarkus:quarkus-resteasy'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task renameArtifacts (type: Copy) {
+    from ("$buildDir")
+    include 'java-pony-unspecified-runner'
+    destinationDir file("$buildDir/native")
+    rename 'java-pony-unspecified-runner', "bootstrap"
+}
+buildNative.finalizedBy renameArtifacts

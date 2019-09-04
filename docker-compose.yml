@@ -1,0 +1,8 @@
+version: '3'
+services:
+  vote_kanye:
+    build:
+      context: ./
+      dockerfile: src/main/docker/Dockerfile.native
+    ports:
+      - 8999:8080
